@@ -2,11 +2,11 @@
 
 Hello, and welcome! Whether you are looking for help, trying to report a bug,
 thinking about getting involved in the project or about to submit a patch, this
-document is for you! It's intent is to be both an entry point for newcomers to
+document is for you! Its intent is to be both an entry point for newcomers to
 the community (with various technical backgrounds), and a guide/reference for
 contributors and maintainers.
 
-Consult the Table of Contents below, and jump to the concerned section.
+Consult the Table of Contents below, and jump to the desired section.
 
 ## Table of Contents
 
@@ -127,7 +127,7 @@ When contributing, be weary of a few things:
   When proposing a change in this part of the documentation, consider proposing
   it for older versions as well.
   Example: if you fix a typo in `app/docs/0.10.x/configuration.md`, this typo
-  may also be present in `app/docs/0.9.x/configuraiton.md`.
+  may also be present in `app/docs/0.9.x/configuration.md`.
 
 [Back to TOC](#table-of-contents)
 
@@ -168,8 +168,8 @@ improve how plugins are distributed and installed on Kong nodes. Stay tuned!
 ### Submitting a patch
 
 Feel free to contribute fixes or minor features, we love to receive Pull
-Requests! If the feature you are planning to develop is more consequent, come
-talk to us first!
+Requests! If you are planning to develop a larger feature, come talk to us
+first!
 
 When contributing, please follow the guidelines provided in this document. They
 will cover topics such as the different Git branches we use, the commit message
@@ -192,12 +192,12 @@ to verify a few things:
 - Do not update CHANGELOG.md yourself. Your change will be included there in
   due time if it is accepted, no worries!
 
-If the above guidelines are respected, your Pull Requests has all its chances
+If the above guidelines are respected, your Pull Request has all its chances
 to be considered and will be reviewed by a maintainer.
 
 If you are asked to update your patch by a reviewer, please do so! Remember:
 **you are responsible for pushing your patch forward**. If you contributed it,
-you probably are the one in need of it. You must be prepared to apply changes
+you are probably the one in need of it. You must be prepared to apply changes
 to it if necessary.
 
 If your Pull Request was accepted, congratulations! You are now an official
@@ -408,7 +408,7 @@ suite.
 - `spec/02-integration` contains tests that start Kong (connected to a running
   database), execute Admin API and proxy requests against it, and verify the
   output
-- `spec/03-plugis` contains tests (both unit and integration) for the bundled
+- `spec/03-plugins` contains tests (both unit and integration) for the bundled
   plugins (those plugins still live in the core repository as of now, but will
   eventually be externalized)
 
@@ -449,7 +449,7 @@ assert.same(t1, t2)
 
 We write code for the [LuaJIT](https://github.com/Mashape/kong/issues/new)
 interpreter, **not** Lua-PUC. As such, you should follow the LuaJIT best
-practises:
+practices:
 
 - Do **not** instantiate global variables
 - Consult the [LuaJIT wiki](http://wiki.luajit.org/Home)
@@ -508,9 +508,9 @@ practises:
   ```
 
 And finally, most importantly: use your best judgement to design an
-efficient algorithm. Doing so will always be more performant than a poorly
-design algorithms, even following all the performance tricks of the language
-you are using. :smile:
+efficient algorithm. Doing so will always be more performant than a
+poorly-designed algorithm, even following all the performance tricks of the
+language you are using. :smile:
 
 [Back to TOC](#table-of-contents)
 
@@ -706,7 +706,7 @@ end
 
 -- good
 local function check_name(name)
-  if #name < 3 and #name > 30 then
+  if #name <= 3 or #name >= 30 then
     return false
   end
 
