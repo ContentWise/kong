@@ -4,6 +4,7 @@ local policies = require "kong.plugins.rate-limiting-failover.policies"
 local timestamp = require "kong.tools.timestamp"
 local responses = require "kong.tools.responses"
 local BasePlugin = require "kong.plugins.base_plugin"
+local header_filter = require "kong.plugins.rate-limiting-failover.header_filter"
 
 local req_get_uri_args = ngx.req.get_uri_args
 local req_set_uri_args = ngx.req.set_uri_args
@@ -73,6 +74,11 @@ function RateLimitingFailoverHandler:new()
   RateLimitingFailoverHandler.super.new(self, "rate-limiting-failover")
 end
 
+function RateLimitingFailoverHandler:header_filter(conf)
+  RateLimitingFailoverHandler.super.header_filter(self)
+  header_filter.execute(conf)
+end
+
 function RateLimitingFailoverHandler:access(conf)
   RateLimitingFailoverHandler.super.access(self)
   local current_timestamp = timestamp.get_utc()
@@ -94,13 +100,13 @@ function RateLimitingFailoverHandler:access(conf)
   }
 
   local usage, stop, err = get_usage(conf, api_id, identifier, current_timestamp, limits)
-  if err then
-    if fault_tolerant then
-      ngx_log(ngx.ERR, "failed to get usage: ", tostring(err))
-    else
-      return responses.send_HTTP_INTERNAL_SERVER_ERROR(err)
+    if err then
+      if fault_tolerant then
+        ngx_log(ngx.ERR, "failed to get usage: ", tostring(err))
+      else
+        return responses.send_HTTP_INTERNAL_SERVER_ERROR(err)
+      end
     end
-  end
 
   if usage then
     -- Adding headers

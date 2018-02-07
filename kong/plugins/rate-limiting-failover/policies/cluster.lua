@@ -14,7 +14,7 @@ return {
       for period, period_date in pairs(periods) do
         if limits[period] then
           local res, err = db:query([[
-            UPDATE ratelimiting_metrics
+            UPDATE ratelimiting_failover_metrics
             SET value = value + ?
             WHERE api_id = ? AND
                   identifier = ? AND
