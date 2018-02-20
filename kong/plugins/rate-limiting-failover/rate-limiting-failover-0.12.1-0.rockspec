@@ -31,7 +31,6 @@ build = {
   modules = {
     ["kong.plugins.rate-limiting-failover.daos"] = "daos.lua",
     ["kong.plugins.rate-limiting-failover.schema"] = "schema.lua",
-    ["kong.plugins.rate-limiting-failover.header_filter"] = "header_filter.lua",
     ["kong.plugins.rate-limiting-failover.handler"] = "handler.lua",
     ["kong.plugins.rate-limiting-failover.migrations.cassandra"] = "migrations/cassandra.lua",
     ["kong.plugins.rate-limiting-failover.migrations.postgres"] = "migrations/postgres.lua",
